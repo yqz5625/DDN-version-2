@@ -42,9 +42,12 @@ onMounted(async () => {
          * Because we need to normalize the original image later, here we set the return result type to
          * include both the quadrilateral and original image data.
          */
-        let newSettings = await normalizer.getSimplifiedSettings("DetectDocumentBoundaries_Default");
-        newSettings.capturedResultItemTypes |= EnumCapturedResultItemType.CRIT_ORIGINAL_IMAGE;
-        await normalizer.updateSettings("DetectDocumentBoundaries_Default", newSettings);
+        const settings =
+      '{"CaptureVisionTemplates":[{"ImageROIProcessingNameArray":["roi_default"],"ImageSource":"","MaxParallelTasks":4,"MinImageCaptureInterval":0,"Name":"Default","OutputOriginalImage":0,"SemanticProcessingNameArray":null,"Timeout":10000}],"CharacterModelOptions":[{"DirectoryPath":"","FilterFilePath":"","Name":"NumberLetter"}],"GlobalParameter":{"MaxTotalImageDimension":0},"ImageParameterOptions":[{"BaseImageParameterName":"","BinarizationModes":[{"BinarizationThreshold":-1,"BlockSizeX":5,"BlockSizeY":5,"EnableFillBinaryVacancy":1,"GrayscaleEnhancementModesIndex":-1,"Mode":"BM_LOCAL_BLOCK","MorphOperation":"Close","MorphOperationKernelSizeX":-1,"MorphOperationKernelSizeY":-1,"MorphShape":"Rectangle","ThresholdCompensation":8}],"ColourConversionModes":[{"BlueChannelWeight":-1,"GreenChannelWeight":-1,"Mode":"CICM_GENERAL","RedChannelWeight":-1,"ReferChannel":"H_CHANNEL"}],"GrayscaleEnhancementModes":[{"Mode":"GEM_GENERAL","Sensitivity":-1,"SharpenBlockSizeX":-1,"SharpenBlockSizeY":-1,"SmoothBlockSizeX":-1,"SmoothBlockSizeY":-1}],"GrayscaleTransformationModes":[{"Mode":"GTM_ORIGINAL"},{"Mode":"GTM_INVERTED"}],"IfEraseTextZone":0,"Name":"ip_dlrDefault","RegionPredetectionModes":[{"AspectRatioRange":"[]","FindAccurateBoundary":0,"ForeAndBackgroundColours":"[]","HeightRange":"[]","ImageParameterName":"","MeasuredByPercentage":1,"MinImageDimension":262144,"Mode":"RPM_GENERAL","RelativeRegions":"[]","Sensitivity":1,"SpatialIndexBlockSize":5,"WidthRange":"[]"}],"ScaleDownThreshold":2300,"ScaleUpModes":[{"AcuteAngleWithXThreshold":-1,"LetterHeightThreshold":0,"Mode":"SUM_AUTO","ModuleSizeThreshold":0,"TargetLetterHeight":0,"TargetModuleSize":0}],"TextDetectionMode":{"CharHeightRange":[20,1000,1],"Direction":"HORIZONTAL","MaxSpacingInALine":-1,"Mode":"TTDM_LINE","Sensitivity":7},"TextureDetectionModes":[{"Mode":"TDM_GENERAL_WIDTH_CONCENTRATION","Sensitivity":5}]}],"LabelRecognizerTaskSettingOptions":[{"BaseLabelRecognizerTaskSettingName":"","DictionaryCorrectionThresholds":[{"MaxWordLength":256,"MinWordLength":3,"Threshold":1}],"DictionaryPath":"","MaxThreadsInOneTask":4,"Name":"dlr_task_default","SectionImageParameterArray":[{"ContinueWhenPartialResultsGenerated":1,"ImageParameterName":"ip_dlrDefault","Section":"ST_REGION_PREDETECTION"},{"ContinueWhenPartialResultsGenerated":1,"ImageParameterName":"ip_dlrDefault","Section":"ST_TEXT_LINE_LOCALIZATION"},{"ContinueWhenPartialResultsGenerated":1,"ImageParameterName":"ip_dlrDefault","Section":"ST_TEXT_LINE_RECOGNITION"}],"StartSection":"ST_REGION_PREDETECTION","StringLengthRange":[3,10],"StringRegExPattern":"^[0-9]+$","TerminateSetting":{"Section":"ST_NULL","Stage":"IRUT_NULL"},"TextLineSpecificationNameArray":["tls_default"]}],"TargetROIDefOptions":[{"BaseTargetROIDefName":"","Location":{"Offset":{"FirstPoint":[0,0],"FourthPoint":[0,100],"MeasuredByPercentage":1,"ReferenceObjectOriginIndex":0,"ReferenceObjectSizeType":"default","SecondPoint":[100,0],"ThirdPoint":[100,100]}},"Name":"roi_default","PauseFlag":0,"TaskSettingNameArray":["dlr_task_default"]}],"TextLineSpecificationOptions":[{"ApplicableTextLineNumbers":"","BaseTextLineSpecificationName":"","BinarizationModes":[{"BinarizationThreshold":-1,"BlockSizeX":5,"BlockSizeY":5,"EnableFillBinaryVacancy":1,"GrayscaleEnhancementModesIndex":-1,"Mode":"BM_LOCAL_BLOCK","MorphOperation":"Erode","MorphOperationKernelSizeX":-1,"MorphOperationKernelSizeY":-1,"MorphShape":"Rectangle","ThresholdCompensation":10}],"CharHeightRange":[20,1000,1],"CharacterModelName":"NumberLetter","CharacterNormalizationModes":[{"Mode":"CNM_AUTO","MorphArgument":"","MorphOperation":"Erode"}],"GrayscaleEnhancementModes":[{"Mode":"GEM_GENERAL","Sensitivity":-1,"SharpenBlockSizeX":-1,"SharpenBlockSizeY":-1,"SmoothBlockSizeX":-1,"SmoothBlockSizeY":-1}],"Name":"tls_default","StringLengthRange":[0,11],"StringRegExPattern":""}]}';
+        await router.initSettings(settings);
+        // let newSettings = await normalizer.getSimplifiedSettings("DetectDocumentBoundaries_Default");
+        // newSettings.capturedResultItemTypes |= EnumCapturedResultItemType.CRIT_ORIGINAL_IMAGE;
+        // await normalizer.updateSettings("DetectDocumentBoundaries_Default", newSettings);
         cameraViewContainerRef.value!.append(view.getUIElement());
 
         /* Defines the result receiver for the task.*/
@@ -127,12 +130,12 @@ onMounted(async () => {
             /* show video view */
             bShowUiContainer.value = true
             view.getUIElement().style.display = "";
-            await normalizer.startCapturing("DetectDocumentBoundaries_Default");
+            await normalizer.startCapturing("Default");
         }
 
         await dce.open();
         /* Uses the built-in template "DetectDocumentBoundaries_Default" to start a continuous boundary detection task. */
-        await normalizer.startCapturing("DetectDocumentBoundaries_Default");
+        await normalizer.startCapturing("Default");
         bShowLoading.value = false;
     } catch (ex: any) {
         let errMsg = ex.message || ex;
