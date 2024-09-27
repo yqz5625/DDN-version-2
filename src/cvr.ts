@@ -8,7 +8,7 @@ import { LicenseManager } from "dynamsoft-license";
 /** LICENSE ALERT - README 
  * To use the library, you need to first call the method initLicense() to initialize the license using a license key string.
  */
-LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9");
+LicenseManager.initLicense("DLS2eyJoYW5kc2hha2VDb2RlIjoiMzIyOTAxLVRYbFhaV0pRY205cSIsIm1haW5TZXJ2ZXJVUkwiOiJodHRwczovL21kbHMuZHluYW1zb2Z0b25saW5lLmNvbSIsIm9yZ2FuaXphdGlvbklEIjoiMzIyOTAxIiwic3RhbmRieVNlcnZlclVSTCI6Imh0dHBzOi8vc2Rscy5keW5hbXNvZnRvbmxpbmUuY29tIiwiY2hlY2tDb2RlIjo0NzgzMDgxOH0=");
 /**
  * The license "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" is a temporary license for testing good for 24 hours.
  * You can visit https://www.dynamsoft.com/customer/license/trialLicense?utm_source=github&architecture=dcv&product=ddn&package=js to get your own trial license good for 30 days.
