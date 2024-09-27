@@ -42,7 +42,7 @@ onMounted(async () => {
          * Because we need to normalize the original image later, here we set the return result type to
          * include both the quadrilateral and original image data.
          */
-        const settings =‘{
+        const settings ={
     "CaptureVisionTemplates": [
         {
             "ImageROIProcessingNameArray": [
@@ -265,7 +265,7 @@ onMounted(async () => {
             "StringRegExPattern": ""
         }
     ]
-}’
+}
         await normalizer.initSettings(settings);
         // let newSettings = await normalizer.getSimplifiedSettings("DetectDocumentBoundaries_Default");
         // newSettings.capturedResultItemTypes |= EnumCapturedResultItemType.CRIT_ORIGINAL_IMAGE;
